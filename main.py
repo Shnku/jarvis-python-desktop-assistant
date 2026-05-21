@@ -1,41 +1,19 @@
-import os
-import subprocess
 import webbrowser
 from datetime import datetime
-from pathlib import Path
 from urllib.parse import quote_plus
 
 import pyttsx3
 
+from features.tell_joke import tell_joke
+from features.process_apps import open_app
+from features.process_folder import open_folder
+from features.process_website import open_website
 
 # ========== SETUP ==========
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 engine.setProperty("voice", voices[0].id)
 engine.setProperty("rate", 170)
-
-WEBSITES = {
-    "google": "https://google.com",
-    "youtube": "https://youtube.com",
-    "gmail": "https://mail.google.com",
-    "instagram": "https://instagram.com",
-    "whatsapp": "https://web.whatsapp.com",
-    "github": "https://github.com",
-}
-
-APPS = {
-    "notepad": "notepad",
-    "calculator": "calc",
-    "paint": "mspaint",
-    "cmd": "cmd",
-}
-
-FOLDERS = {
-    "desktop": Path.home() / "Desktop",
-    "downloads": Path.home() / "Downloads",
-    "documents": Path.home() / "Documents",
-    "pictures": Path.home() / "Pictures",
-}
 
 
 # ========== SPEAK ==========
@@ -46,47 +24,6 @@ def speak(text):
 
 
 # ========== HELPERS ==========
-def open_website(command):
-    for name, url in WEBSITES.items():
-        if f"open {name}" in command:
-            speak(f"Opening {name}")
-            webbrowser.open(url)
-            return True
-
-    return False
-
-
-def open_app(command):
-    for name, app in APPS.items():
-        if f"open {name}" in command:
-            speak(f"Opening {name}")
-            subprocess.Popen(app)
-            return True
-
-    return False
-
-
-def open_folder(command):
-    for name, folder in FOLDERS.items():
-        if f"open {name}" in command:
-            if folder.exists():
-                speak(f"Opening {name}")
-                os.startfile(folder)
-            else:
-                speak(f"{name} folder was not found")
-            return True
-
-    return False
-
-
-def tell_joke():
-    try:
-        import pyjokes
-    except ImportError:
-        speak("Install pyjokes first by running pip install pyjokes")
-        return
-
-    speak(pyjokes.get_joke())
 
 
 # ========== COMMAND ==========
@@ -110,7 +47,9 @@ def processCommand(command):
 
         if song:
             speak(f"Playing {song}")
-            webbrowser.open(f"https://www.youtube.com/results?search_query={quote_plus(song)}")
+            webbrowser.open(
+                f"https://www.youtube.com/results?search_query={quote_plus(song)}"
+            )
         else:
             speak("Say song name")
 
@@ -119,7 +58,9 @@ def processCommand(command):
 
         if query:
             speak(f"Searching YouTube for {query}")
-            webbrowser.open(f"https://www.youtube.com/results?search_query={quote_plus(query)}")
+            webbrowser.open(
+                f"https://www.youtube.com/results?search_query={quote_plus(query)}"
+            )
         else:
             speak("Say what you want to search on YouTube")
 
