@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from main import speak
+from speech import speak
 
 FOLDERS = {
     "desktop": Path.home() / "Desktop",

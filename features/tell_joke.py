@@ -1,4 +1,4 @@
-from main import speak
+from speech import speak
 
 
 def tell_joke():

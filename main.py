@@ -2,28 +2,11 @@ import webbrowser
 from datetime import datetime
 from urllib.parse import quote_plus
 
-import pyttsx3
-
+from speech import speak
 from features.tell_joke import tell_joke
 from features.process_apps import open_app
 from features.process_folder import open_folder
 from features.process_website import open_website
-
-# ========== SETUP ==========
-engine = pyttsx3.init()
-voices = engine.getProperty("voices")
-engine.setProperty("voice", voices[0].id)
-engine.setProperty("rate", 170)
-
-
-# ========== SPEAK ==========
-def speak(text):
-    print("Jarvis:", text)
-    engine.say(text)
-    engine.runAndWait()
-
-
-# ========== HELPERS ==========
 
 
 # ========== COMMAND ==========

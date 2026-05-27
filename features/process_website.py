@@ -1,6 +1,6 @@
 import webbrowser
 
-from main import speak
+from speech import speak
 
 
 WEBSITES = {

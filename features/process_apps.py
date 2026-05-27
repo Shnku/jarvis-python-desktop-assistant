@@ -1,5 +1,5 @@
 import subprocess
-from main import speak
+from speech import speak
 
 
 APPS = {
