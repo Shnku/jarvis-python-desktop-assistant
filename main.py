@@ -2,16 +2,17 @@ import webbrowser
 from datetime import datetime
 from urllib.parse import quote_plus
 
-from speech import speak
 from features.tell_joke import tell_joke
 from features.process_apps import open_app
 from features.process_folder import open_folder
 from features.process_website import open_website
+from speech import speak
 
 
 # ========== COMMAND ==========
 def processCommand(command):
     command = command.lower().strip()
+    response_text = ""
 
     if not command:
         return
@@ -29,52 +30,65 @@ def processCommand(command):
         song = command.replace("play", "", 1).strip()
 
         if song:
-            speak(f"Playing {song}")
+            response_text = f"Playing {song}"
+            speak(response_text)
             webbrowser.open(
                 f"https://www.youtube.com/results?search_query={quote_plus(song)}"
             )
         else:
-            speak("Say song name")
+            response_text = "Say song name"
+            speak(response_text)
 
     elif command.startswith("search youtube"):
         query = command.replace("search youtube", "", 1).strip()
 
         if query:
-            speak(f"Searching YouTube for {query}")
+            response_text = f"Searching YouTube for {query}"
+            speak(response_text)
             webbrowser.open(
                 f"https://www.youtube.com/results?search_query={quote_plus(query)}"
             )
         else:
-            speak("Say what you want to search on YouTube")
+            response_text = "Say what you want to search on YouTube"
+            speak(response_text)
 
     elif "news" in command:
-        speak("Opening today's news")
+        response_text = "Opening today's news"
+        speak(response_text)
         webbrowser.open("https://news.google.com/topstories?hl=en-IN&gl=IN&ceid=IN:en")
 
     elif command in ["time", "what is the time", "current time"]:
         current_time = datetime.now().strftime("%I:%M %p")
-        speak(f"The time is {current_time}")
+        response_text = f"The time is {current_time}"
+        speak(response_text)
 
     elif command in ["date", "today date", "what is the date"]:
         current_date = datetime.now().strftime("%d %B %Y")
-        speak(f"Today's date is {current_date}")
+        response_text = f"Today's date is {current_date}"
+        speak(response_text)
 
     elif "joke" in command:
-        tell_joke()
+        response_text = tell_joke()
+        speak(response_text)
 
     elif command.startswith("tell me about"):
         topic = command.replace("tell me about", "", 1).strip()
 
         if topic:
-            speak(f"Searching about {topic}")
+            response_text = f"Searching about {topic}"
+            speak(response_text)
             webbrowser.open(f"https://www.google.com/search?q={quote_plus(topic)}")
         else:
-            speak("Say the topic name")
+            response_text = "Say the topic name"
+            speak(response_text)
 
     else:
-        speak("Searching Google")
+        response_text = "Searching Google"
+        speak(response_text)
         query = quote_plus(command)
         webbrowser.open(f"https://www.google.com/search?q={query}")
+
+    return response_text
 
 
 # ========== MAIN ==========

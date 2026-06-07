@@ -8,4 +8,4 @@ def tell_joke():
         speak("Install pyjokes first by running pip install pyjokes")
         return
 
-    speak(pyjokes.get_joke())
+    return pyjokes.get_joke()
