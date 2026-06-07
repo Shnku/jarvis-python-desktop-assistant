@@ -1,11 +1,13 @@
-from speech import speak
+# from speech import speak
 
 
-def tell_joke():
+def get_joke():
+    response_text = ""
     try:
         import pyjokes
     except ImportError:
-        speak("Install pyjokes first by running pip install pyjokes")
-        return
+        response_text = "Install pyjokes first by running pip install pyjokes"
+        return response_text
 
-    return pyjokes.get_joke()
+    response_text = pyjokes.get_joke()
+    return response_text
