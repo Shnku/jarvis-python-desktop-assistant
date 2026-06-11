@@ -1,6 +1,6 @@
 # Use this file to specify the dependencies for your project. 
 
-# To will generate this file with the current environment's packages and their versions.
+# To generate this file with the current environment's packages and their versions: 
 # pip freeze > requirements.txt 
 
 # You can install them using pip:

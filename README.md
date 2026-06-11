@@ -141,6 +141,38 @@ jarvis-python-desktop-assistant/
 - The `play` command opens YouTube search results instead of directly controlling YouTube playback.
 - `pyjokes` is optional at runtime; if it is missing, Jarvis tells the user to install it.
 
+
+## Development 
+
+### Project Setup
+
+Clone this repository:
+
+```powershell
+git clone https://github.com/code-with-akki010/jarvis-python-desktop-assistant.git
+cd jarvis-python-desktop-assistant
+```
+In case of fork repo replace `your-username` with your GitHub username
+
+Create a python virtual environment (Best Practice):
+
+```powershell
+python -m venv venv
+.\venv\bin\activate.ps1
+```
+
+Install required packages 
+
+```powershell
+pip install -r requirement.txt
+```
+
+### Building
+
+```powershell
+pyinstaller --onefile app.py
+```
+
 ## Future Improvements
 
 - Add a simple graphical user interface.
