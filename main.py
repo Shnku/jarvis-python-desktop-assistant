@@ -18,16 +18,16 @@ def processCommand(command):
     if not command:
         return
 
-    if open_website(command):
-        return
+    if response_text := open_website(command):
+        return response_text
 
-    if open_app(command):
-        return
+    if response_text := open_app(command):
+        return response_text
 
-    if open_folder(command):
-        return
+    if response_text := open_folder(command):
+        return response_text
 
-    if command.startswith("play"):
+    elif command.startswith("play"):
         song = command.replace("play", "", 1).strip()
 
         if song:

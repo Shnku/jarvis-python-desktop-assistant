@@ -75,8 +75,8 @@ def main(page: ft.Page):
         hint_text="Give me a command...",
         autofocus=True,
         shift_enter=True,
-        border_width=1.5,
-        border_radius=15,
+        border_width=1.2,
+        border_radius=30,
         expand=True,
         on_submit=send_click,
     )
@@ -102,14 +102,19 @@ def main(page: ft.Page):
             "tell me about flet in python",
             "What is the time",
             "tell me a joke",
-            "play some music",
+            "play believer",
             "open desktop",
+            "search youtube python tutorial",
             "open downloads folder",
-            "Date",
+            "today date",
             "today's news",
             "open pictures",
-            "Open google",
+            "open documents",
+            "Open gmail",
+            "open whatsapp",
             "Open notepad",
+            "open calculator",
+            "open github",
         ]
     ]
 
@@ -161,12 +166,13 @@ def main(page: ft.Page):
                     ),
                     ft.Row(
                         margin=ft.Margin(top=8),
+                        spacing=2,
                         controls=[
                             new_message,
                             ft.IconButton(
-                                icon=ft.Icons.SEND,
+                                icon=ft.Icons.SEND_ROUNDED,
                                 adaptive=True,
-                                icon_size=30,
+                                icon_size=35,
                                 on_click=send_click,
                             ),
                         ],

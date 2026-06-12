@@ -1,7 +1,7 @@
 import webbrowser
+from threading import Thread
 
 from speech import speak
-
 
 WEBSITES = {
     "google": "https://google.com",
@@ -16,8 +16,9 @@ WEBSITES = {
 def open_website(command):
     for name, url in WEBSITES.items():
         if f"open {name}" in command:
-            speak(f"Opening {name}")
+            # speak(f"Opening {name}")
+            Thread(target=speak, args=[f"Opening {name}"], daemon=True).start()
             webbrowser.open(url)
-            return True
+            return f"openning {name}"
 
     return False

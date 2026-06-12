@@ -1,5 +1,9 @@
 import os
+import platform as pt
+import subprocess as sp
 from pathlib import Path
+from threading import Thread
+
 from speech import speak
 
 FOLDERS = {
@@ -14,10 +18,13 @@ def open_folder(command):
     for name, folder in FOLDERS.items():
         if f"open {name}" in command:
             if folder.exists():
-                speak(f"Opening {name}")
-                os.startfile(folder)
+                say = f"Opening {name.capitalize()}"
+                os.startfile(folder) if pt.system == "Windows" else sp.run(
+                    ["xdg-open", folder]
+                )
             else:
-                speak(f"{name} folder was not found")
-            return True
+                say = f"{name} folder was not found"
+            Thread(target=speak, args=[say], daemon=True).start()
+            return say
 
     return False
