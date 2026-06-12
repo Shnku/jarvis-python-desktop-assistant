@@ -21,59 +21,8 @@ This version is designed to be reliable on normal desktops and laptops without r
 
 ## Architecture
 
-The project includes a visual architecture page:
-
-[View Architecture Diagram as Webpage](https://code-with-akki010.github.io/jarvis-python-desktop-assistant/architecture.html)
-
-
-## Tech Stack
-
-| Technology | Purpose |
-| --- | --- |
-| Python | Main programming language |
-| `pyttsx3` | Offline text-to-speech output |
-| `pyjokes` | Random programming jokes |
-| `webbrowser` | Opens websites, YouTube searches, Google News, and Google fallback search |
-| `subprocess` | Launches Windows desktop applications |
-| `os.startfile` | Opens local folders on Windows |
-| `pathlib` | Builds user-folder paths |
-| `datetime` | Gets current time and date |
-| `urllib.parse.quote_plus` | Safely formats search queries for URLs |
-
-## Installation
-
-Clone this repository:
-
-```powershell
-git clone https://github.com/your-username/jarvis-python-desktop-assistant.git
-cd jarvis-python-desktop-assistant
-```
-Replace `your-username` with your GitHub username
-
-Install the required packages:
-
-```powershell
-pip install pyttsx3 pyjokes
-```
-
-If `pyttsx3` does not speak on your system, check that Windows text-to-speech voices are installed and enabled.
-
-## Run The Project
-
-Start Jarvis from the project folder:
-
-```powershell
-python main.py
-```
-
-Expected output:
-
-```text
-Jarvis: Initializing Jarvis
-Type command for Jarvis:
-```
-
-Type a command and press Enter.
+The project includes a visual architecture page:  
+[View Architecture Diagram as Webpage](https://code-with-akki010.github.io/jarvis-python-desktop-assistant/design_plan/architecture.html)
 
 ## Supported Commands
 
@@ -100,11 +49,11 @@ Type a command and press Enter.
 | `date` | Tells today's date |
 | `joke` | Tells a random programming joke |
 | `tell me about virat kohli` | Searches Google for the topic |
-| `exit` | Stops Jarvis |
-| `quit` | Stops Jarvis |
-| `stop` | Stops Jarvis |
+| `exit` (CLI only) | Stops Jarvis |
+| `quit` (CLI only) | Stops Jarvis |
+| `stop` (CLI only) | Stops Jarvis |
 
-## Example Usage
+## Example Usage (CLI Only: `main.py`)
 
 ```text
 Type command for Jarvis: open notepad
@@ -120,17 +69,25 @@ Type command for Jarvis: tell me about artificial intelligence
 Jarvis: Searching about artificial intelligence
 ```
 
-## Project Structure
+## Tech Stack
 
-```text
-jarvis-python-desktop-assistant/
-|-- assets/
-|   `-- jarvis-banner.png
-|-- architecture.html
-|-- LICENSE
-|-- main.py
-`-- README.md
-```
+| Technology | Purpose |
+| --- | --- |
+| `Python` | Main programming language |
+| `pyttsx3` | Offline text-to-speech output |
+| `pyjokes` | Random programming jokes |
+| `webbrowser` | Opens websites, YouTube searches, Google News, and Google fallback search |
+| `subprocess` | Launches Windows desktop applications |
+| `os.startfile` | Opens local folders on Windows |
+| `pathlib` | Builds user-folder paths |
+| `datetime` | Gets current time and date |
+| `urllib.parse.quote_plus` | Safely formats search queries for URLs |
+| `Thread` | Speaking in Background |
+| `asyncio` | Asyncronus function provider |
+| `pywin32` | Brighe between python & Windows system functions(windows API) |
+| `comtypes` | Python bridge(API) to work with Windows COM components |
+| `flet` | Flutter like Modern GUI in Python |
+| `pyinstaller` | Packages Python scripts into standalone executables |
 
 ## Notes And Limitations
 
@@ -141,46 +98,128 @@ jarvis-python-desktop-assistant/
 - The `play` command opens YouTube search results instead of directly controlling YouTube playback.
 - `pyjokes` is optional at runtime; if it is missing, Jarvis tells the user to install it.
 
-
-## Development 
-
-### Project Setup
+## ***Development***
 
 Clone this repository:
 
 ```powershell
-git clone https://github.com/code-with-akki010/jarvis-python-desktop-assistant.git
+git clone https://github.com/code-with-akki010/jarvis-python-desktop-assistant.git  
+
+# Nevigate to project directory 
 cd jarvis-python-desktop-assistant
 ```
+
 In case of fork repo replace `your-username` with your GitHub username
 
-Create a python virtual environment (Best Practice):
+### Project Structure
 
-```powershell
-python -m venv venv
-.\venv\bin\activate.ps1
+```sh
+jarvis-python-desktop-assistant/
+├── assets
+│   └── jarvis-banner.png
+├── design_plan
+│   └── architecture.html   # visual structure of app
+├── features                # contains helping module 
+│   ├── __init__.py
+│   ├── get_joke.py
+│   ├── process_apps.py
+│   ├── process_folder.py
+│   ├── process_website.py
+├── app.py                  # Main GUI app
+├── main.py                 # the CLI (can work individually)
+├── speech.py               # process text-to-speech
+├── requirements.txt        # contains required python packages
+├── README.md
+└── LICENSE
 ```
 
-Install required packages 
+**Prerequisites:** Python 3.x installed on your system
 
-```powershell
-pip install -r requirement.txt
+### Virtual Environment Setup (Best Practices)
+
+It's recommended to use a virtual environment to manage dependencies.  
+
+```bash
+# Creating a Virtual Environment:-
+python -m venv myenv                
 ```
 
-### Building
+Activating the Virtual Environment :-
 
 ```powershell
+# Command Prompt (cmd) 
+myenv\Scripts\activate
+
+# or, PowerShell 
+myenv\Scripts\Activate.ps1
+
+# Bash/Zsh (Linux/MacOS)
+source myenv/bin/activate
+```
+
+**Installing Dependencies**  
+Once the virtual environment is activated, install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Running The Application
+
+```bash
+# Run the CLI app 
+python main.py
+```
+
+Run the GUI flet app :-
+
+```bash
+python app.py
+# or 
+flet run app.py
+```
+
+### Run Flet app with GUI Hot Reload (Development)
+
+```bash
+# Watch for changes and auto-reload
+flet run -d app.py
+```
+
+### Run in Web Mode
+
+```bash
+# Run as web app (opens in browser)
+flet run -d --web app.py      
+```
+
+Now you are ready to bring your ideas to life
+
+### Building the Application
+
+To build the application as a standalone executable (.exe):
+
+```bash
 pyinstaller --onefile app.py
 ```
 
+The executable will be created in the `dist` folder.  
+
+example executable will be : `jarvis-python-desktop-assistant\dist\app.exe`
+
+---
+
+***Note:** Make sure to nevigate to your project directory & activate your virtual environment before **installing** dependencies, **running application** or **building** the application.*
+
 ## Future Improvements
 
-- Add a simple graphical user interface.
-- Add command history.
-- Add custom user-defined shortcuts.
-- Add support for more Windows applications.
-- Add cross-platform support for macOS and Linux.
-- Add optional voice input only when a microphone is available.
+- [x] Add a simple graphical user interface.
+- [x] Add commands suggations list.
+- [ ] Add command history.
+- [ ] Add custom user-defined shortcuts.
+- [ ] Add support for more Windows applications.
+- [ ] Add cross-platform support for macOS and Linux.
+- [ ] Add optional voice input only when a microphone is available.
 
 ## License
 
@@ -191,4 +230,3 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 Built as a Python desktop assistant project by `code-with-akki010`.
 
 If you like this project, consider giving it a star on GitHub.
-
