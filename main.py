@@ -2,11 +2,11 @@ import webbrowser
 from datetime import datetime
 from urllib.parse import quote_plus
 
-from speech import speak
-from features.tell_joke import tell_joke
+from features.get_joke import get_joke
 from features.process_apps import open_app
 from features.process_folder import open_folder
 from features.process_website import open_website
+from speech import speak
 
 
 # ========== COMMAND ==========
@@ -60,7 +60,7 @@ def processCommand(command):
         speak(f"Today's date is {current_date}")
 
     elif "joke" in command:
-        tell_joke()
+        get_joke()
 
     elif command.startswith("tell me about"):
         topic = command.replace("tell me about", "", 1).strip()

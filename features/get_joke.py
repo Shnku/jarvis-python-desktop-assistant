@@ -1,7 +1,7 @@
 from speech import speak
 
 
-def tell_joke():
+def get_joke():
     try:
         import pyjokes
     except ImportError:
